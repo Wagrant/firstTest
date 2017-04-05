@@ -1,4 +1,3 @@
 <?php
-
-include_once "registration.php";
-include_once "registerView.php";
+include_once "login.php";
+include_once "loginView.php";

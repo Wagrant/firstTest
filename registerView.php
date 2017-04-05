@@ -1,3 +1,4 @@
+<?php include_once "registration.php";?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,6 +10,7 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
 <style>
 	div
 	  #center { text-align: center; }
@@ -20,9 +22,17 @@
 <div class="container">
 			<h2>Registration</h2>
             <form class="form-horizontal" method="POST" action="index.php">
-               <div class='alert alert-danger' style="display: none">
-                <strong>Error:</strong> Some fields are empty.
+                    Have account? <a href="http://local.loc/loginView.php"> Login </a>
+               <div class='alert alert-danger' <?if ($flag){?> style="display: none"<?}?>>
+                <strong>Error:</strong><?foreach ($errors as $errKey => $errValue) {
+                        echo "{$errValue}";
+                }?> 
                 </div>
+                <div class='alert alert-success' <?if ($test == FALSE){?> style="display: none"<?}?>>
+                    <strong>Success!</strong> <?foreach ($success as $sucKey => $sucValue) {
+                        echo "{$sucValue} ";
+                }?>
+                    </div>
                 <div class="form-group">
                     <label for="login" class="col-sm-4 control-label">Login</label>
                     <div class="col-sm-5">
@@ -48,9 +58,14 @@
                     </div>
                 </div>
                     <div class="form-group">
-                    <label for="telephone" class="col-sm-4 control-label">telephone</label>
+                    <label for="telephone" class="col-sm-4 control-label" onkeyup="return proverka" onchange="return proverka">telephone</label>
                     <div class="col-sm-5">
-                        <input type="" name="phone" placeholder="000-000-00-00" class="form-control">
+                        <input type="text" name="phone" placeholder="000-000-00-00" class="form-control">
+                            <script> $("input[name='phone']").keypress(function(event)
+                                {
+                                    if (event.which < 48 || event.which > 57) return false;
+                                });
+                            </script>
                     </div>
                 </div>
                 <div class="form-group">
