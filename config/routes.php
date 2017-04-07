@@ -1,4 +1,6 @@
 <?php
 return array(
-		'registration' => 'registr/index'
+		'reg' => 'reg/reg',
+		'auth' => 'auth/auth',
+		'main' => 'main/main'
 	);

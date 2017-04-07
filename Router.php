@@ -30,7 +30,7 @@ class Route
 
                 $actionName = 'action' .ucfirst(array_shift($segments));
 
-                $controllerFile = 'controller/'.$controllerName.'.php';
+                $controllerFile = ROOT. '/controllers/'.$controllerName.'.php';
 
                 if (file_exists($controllerFile))
                 {
@@ -38,7 +38,7 @@ class Route
                 }
 
                 $controllerObject = new $controllerName;
-                $result = $controllerObject->actionName();
+                $result = $controllerObject->$actionName();
                 if ($result != null)
                 {
                     break;
