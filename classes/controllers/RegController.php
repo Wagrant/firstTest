@@ -2,9 +2,16 @@
 class RegController
 {
 	public function actionReg()
-	{	
-		$reg = new regModel($login, $password, $passwordAgain, $email, $phone, $errors, $success);
+	{
+		if (empty($_SESSION['login'])) 
+		{
+			$reg = new regModel($login, $password, $passwordAgain, $email, $phone, $errors, $success);
 
-		require_once "classes/views/registrationView.php";
+			include_once "classes/views/registrationView.php";
+		}
+		else
+		{
+			header("Location: http://local.loc/main");
+		}
 	}
 }

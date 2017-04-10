@@ -1,4 +1,5 @@
 <?php
+session_start();
 class authModel
 {
 	public $login;
@@ -41,6 +42,7 @@ class authModel
 			else
 			{
 				$this->suc[] = 'Welcome';
+				$_SESSION['login'] = $loginRes['login'];
 				header("Location: http://local.loc/main");
 			}
 		}

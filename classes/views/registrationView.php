@@ -28,7 +28,7 @@
                 <strong>Whoops! Somthing wrong!<br></strong><?if (isset($reg->errors))
                     {foreach ($reg->errors as $errKey => $errValue) {
                         echo "{$errValue}";
-                }}?> 
+                }}?>
                 </div>
             </div>
         </div>
