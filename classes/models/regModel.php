@@ -1,5 +1,5 @@
 <?php
-Class regModel
+Class regModel extends dbModel
 {
 	public $login;
 	public $password;
@@ -9,74 +9,72 @@ Class regModel
 	public $errors = array();
 	public $success = array();
 
-	public function __construct($login, $password, $passwordAgain, $email, $phone, $errors)
+	public function __construct($login, $password, $passwordAgain, $email, $phone, $country)
 	{
-
 		$this->login 		 = $login;
 		$this->password 	 = $password;
 		$this->passwordAgain = $passwordAgain;
 		$this->email 		 = $email;
 		$this->phone 		 = $phone;
-		$this->errors 		 = array();
-		$this->success 		 = array();
+		$this->country 		 = $country;
+	}
 
-		if (isset($_POST['submit'])) 
+	public function checkPost()
+	{
+		if  (empty($this->login) || empty($this->password) || empty($this->passwordAgain) || empty($this->email) || empty($this->phone))
+		{
+			$this->errors[] = '<ul> <li> Some fields are empty! </li> </ul>';
+		}
+
+		if ($this->password !== $this->passwordAgain)
+		{
+			$this->errors[] = '<ul> <li> Passwords do not match! </li> </ul>';
+		}
+		parent::connect();
+		$select = $this->dbh->prepare("SELECT user_id FROM users WHERE login='$this->login'OR email='$this->email'");
+		$select->execute();
+		$result = $select->fetch(PDO::FETCH_ASSOC);
+
+		if(!empty($result))
+		{
+			$this->errors[] = '<ul> <li>This login or Email is currectly use </li> </ul>';
+		}
+
+		return $this->errors;
+	}
+
+	public function checkUser()
+	{
+
+		if (empty($this->errors))
 		{
 
-			$login	 	   = $_POST['login'];
-			$password 	   = $_POST['password'];
-			$passwordAgain = $_POST['passwordAgain'];
-			$email 		   = $_POST['email'];
-			$phone 		   = $_POST['phone'];
-			$country	   = $_POST['country'];
+			$this->login 		   = htmlspecialchars($this->login);
+			$this->password 	   = htmlspecialchars($this->password);
+			$this->passwordAgain   = htmlspecialchars($this->passwordAgain);
+			$this->email 		   = htmlspecialchars($this->email);
+			$this->phone 		   = htmlspecialchars($this->phone);
 
-			$login 		   = htmlspecialchars($login);
-			$password 	   = htmlspecialchars($password);
-			$passwordAgain = htmlspecialchars($passwordAgain);
-			$email 		   = htmlspecialchars($email);
-			$phone 		   = htmlspecialchars($phone);
+			$this->login 		   = trim($this->login);
+			$this->password 	   = trim($this->password);
+			$this->passwordAgain   = trim($this->passwordAgain);
+			$this->email 		   = trim($this->email);
+			$this->phone 		   = trim($this->phone);
 
-			$login 		   = trim($login);
-			$password 	   = trim($password);
-			$passwordAgain = trim($passwordAgain);
-			$email 		   = trim($email);
-			$phone 		   = trim($phone);
+			$this->password 	   = md5($this->password);
+			$this->passwordAgain   = md5($this->passwordAgain);
 
-			$password 	   = md5($password);
-			$passwordAgain = md5($passwordAgain);
+			parent::connect();
+			$insert = $this->dbh->prepare("INSERT INTO users (login, password, email, phone, city) Values (:login, :password, :email, :phone, :country)");
+			$insert->bindParam (":login", $this->login, PDO::PARAM_STR);
+			$insert->bindParam (":password", $this->password, PDO::PARAM_STR);
+			$insert->bindParam (":email", $this->email, PDO::PARAM_STR);
+			$insert->bindParam (":phone", $this->phone, PDO::PARAM_INT);
+			$insert->bindParam (":country", $this->country, PDO::PARAM_STR);
+			$insert->execute();
 
-			if (empty($_POST['login']) || empty($_POST['password']) || empty($_POST['passwordAgain']) || empty($_POST['email']) || empty($_POST['phone']))
-			 {
-				$this->errors[] = '<ul> <li> Some fields are empty! </li> </ul>';
-			 }
-
-			 if ($password !== $passwordAgain)
-			 {
-				$this->errors[] = '<ul> <li> Passwords do not match! </li> </ul>';
-			 }
-
-			include_once "DB.php";
-			$select = $dbh->prepare("SELECT user_id FROM users WHERE login='$login'OR email='$email'");
-			$select->execute();
-			$result = $select->fetch(PDO::FETCH_ASSOC);
-
-			if(!empty($result))
-			{
-				$this->errors[] = '<ul> <li>This login or Em@il is currectly use </li> </ul>';
-			}
-
-			if (empty($this->errors)) 
-			{
-					$insert = $dbh->prepare("INSERT INTO users (login, password, email, phone, city) Values (:login, :password, :email, :phone, :country)");
-					$insert->bindParam (":login", $login, PDO::PARAM_STR);
-					$insert->bindParam (":password", $password, PDO::PARAM_STR);
-					$insert->bindParam (":email", $email, PDO::PARAM_STR);
-					$insert->bindParam (":phone", $phone, PDO::PARAM_INT);
-					$insert->bindParam (":country", $country, PDO::PARAM_STR);
-					$insert->execute();
-
-					$this->success[] = 'Your registration is sucsess <a href="http://local.loc/loginView.php"> Login</a>';
-			}
+			$this->success[] = 'Your registration is sucsess <a href="http://local.loc/auth"> Login</a>';
+			return $this->success;
 		}
 	}
 }

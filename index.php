@@ -1,7 +1,11 @@
 <?php
+
+ini_set("display_errors", 1);
+error_reporting(E_ALL);
+
 session_start();
 require_once 'Autoloader.php';
-define('DIR', realpath(dirname(__FILE__)));
+include_once 'config/define.php';
 
 require_once 'Router.php';
 $routing = new Route;
@@ -10,5 +14,5 @@ $routing->run();
 spl_autoload_register('Autoloader::autoload');
 spl_autoload_register('Autoloader::recursive_autoload');
 
-$new = new MainController;
-$new->actionMain();
+$main = new MainController;
+$main->actionMain();

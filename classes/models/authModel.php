@@ -1,50 +1,40 @@
 <?php
-session_start();
-class authModel
+class authModel extends dbModel
 {
 	public $login;
 	public $password;
-	public $email;
 	public $err = array();
-	public $suc = array();
 
-	function __construct($login, $password, $email,  $err, $suc)
+		function __construct($login, $password)
 	{
-
 		$this->login 	= $login;
 		$this->password = $password;
-		$this->email 	= $email;
-		$this->err 		= array();
-		$this->suc 		= array();
+	}
 
-		if (isset($_POST['submitLog'])) 
+	public function auth()
+	{
+		$this->login   	   = htmlspecialchars($this->login);
+		$this->password    = htmlspecialchars($this->password);
+
+		$this->login   	   = trim($this->login);
+		$this->password    = trim($this->password);
+
+		$this->password    = md5($this->password);
+
+		parent::connect();
+		$select = $this->dbh->prepare("SELECT * FROM users WHERE login='$this->login' AND password='$this->password'");
+		$select->execute();
+		$loginRes = $select->fetch(PDO::FETCH_ASSOC);
+
+		if (empty($loginRes)) 
 		{
-			$login 	       = $_POST['login'];
-			$password      = $_POST['password'];
-
-			$login   	   = htmlspecialchars($login);
-			$password      = htmlspecialchars($password);
-
-			$login   	   = trim($login);
-			$password      = trim($password);
-
-			$password 	   = md5($password);
-
-			include_once "DB.php";
-		    $select = $dbh->prepare("SELECT * FROM users WHERE login='$login' AND password='$password'");
-			$select->execute();
-			$loginRes = $select->fetch(PDO::FETCH_ASSOC);
-
-			if (empty($loginRes)) 
-			{
-				$this->err[] = '<ul> <li> Incorrect login or password </li> </ul>';
-			}
-			else
-			{
-				$this->suc[] = 'Welcome';
-				$_SESSION['login'] = $loginRes['login'];
-				header("Location: http://local.loc/main");
-			}
+			$this->err[] = '<ul> <li> Incorrect login or password </li> </ul>';
+			return $this->err;
+		}
+		else
+		{
+			$_SESSION['login'] = $loginRes['login'];
+			header("Location: http://local.loc/main");
 		}
 	}
 }

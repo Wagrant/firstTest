@@ -3,18 +3,22 @@ class AuthController
 {
 	public function actionAuth()
 	{
+		$err = null;
+
 		if (empty($_SESSION['login']))
 		{
-			$auth = new authModel($login, $password,$email, $err, $suc);
-			//$view = new Template();
-			//$view->title = "hello, world";
-			//$view->links = array("one", "two", "three");
-			//$view->body = "Hi, sup";
-			//$view->content = $view->render('classes/views/loginView.php');
+			if (isset($_POST['submit'])) 
+			{
+			
+				$auth = new authModel ($_POST['login'], $_POST['password']);
+				$err = $auth->auth();
 
-			//echo $view->render('classes/views/loginView.php');
+			}
 
-			include_once "classes/views/loginView.php";
+				$temp = new Template;
+				$temp->err = $err;
+				$temp->render("classes/views/loginView.php");
+				echo $temp->render("classes/views/loginView.php");
 		}
 
 		else

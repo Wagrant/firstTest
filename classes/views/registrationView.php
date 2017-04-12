@@ -21,19 +21,19 @@
 <div class="container">
 			<h2>Registration</h2>
              <label for="login" class="col-sm-4  control-label">Have account? <a href="http://local.loc/auth"> Login </a></label>
-            <form class="form-horizontal" method="POST" action="regModel.php">
+            <form class="form-horizontal" method="POST" action="reg">
                     <div class="form-group">
                     <div class="col-sm-5">
-               <div class='alert alert-danger' <?if (empty($reg->errors)){?> style="display: none"<?}?>>
-                <strong>Whoops! Somthing wrong!<br></strong><?if (isset($reg->errors))
-                    {foreach ($reg->errors as $errKey => $errValue) {
+               <div class='alert alert-danger' <?if (empty($errors)){?> style="display: none"<?}?>>
+                <strong>Whoops! Somthing wrong!<br></strong><?if (isset($errors))
+                    {foreach ($errors as $errKey => $errValue) {
                         echo "{$errValue}";
                 }}?>
                 </div>
             </div>
         </div>
-                <div class='alert alert-success' <?if ($reg->success == FALSE){?> style="display: none"<?}?>>
-                    <strong>Success!</strong> <?foreach ($reg->success as $sucKey => $sucValue) {
+                <div class='alert alert-success' <?if ($success == FALSE){?> style="display: none"<?}?>>
+                    <strong>Success!</strong> <?foreach ($success as $sucKey => $sucValue) {
                         echo "{$sucValue} ";
                 }?>
                     </div>
