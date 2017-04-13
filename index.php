@@ -12,7 +12,10 @@ $routing = new Route;
 $routing->run();
 
 spl_autoload_register('Autoloader::autoload');
-spl_autoload_register('Autoloader::recursive_autoload');
+//spl_autoload_register('Autoloader::recursive_autoload');
 
 $main = new MainController;
 $main->actionMain();
+
+$com = new CommentController;
+$com->actionComment();
