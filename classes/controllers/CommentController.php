@@ -15,7 +15,6 @@ class commentController
 			
 			$temp = new Template;
 			$temp->result_all = $result_all;
-			$temp->render("classes/views/commentView.php");
 			echo $temp->render("classes/views/commentView.php");
 
 		}

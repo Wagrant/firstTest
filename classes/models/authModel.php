@@ -34,7 +34,6 @@ class authModel extends dbModel
 		else
 		{
 			$_SESSION['login'] = $loginRes['login'];
-			header("Location: http://local.loc/main");
 		}
 	}
 }

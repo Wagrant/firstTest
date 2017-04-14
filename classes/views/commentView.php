@@ -1,8 +1,8 @@
-<!doctype html>
 <html lang="en">
 <head>
     <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script type="text/javascript" src="test.js"></script>
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -32,23 +32,20 @@
             <div class="logout">
                 <button class="btn btn-default btn-circle text-uppercase" type="button" onclick="$('#logout').hide(); $('#login').show()">
                     <span class="glyphicon glyphicon-off"></span> Logout                    
-                </button>                
+                </button>           
             </div>
         </div>
         <div class="comment-tabs">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="active"><a href="#comments-logout" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Comments</h4></a></li>
+                      <li><a href="#" role="tab" data-toggle="modal" data-target="#modal-1"><h4 class="reviews text-capitalize">Add comment</h4></a></li>
                     <div class="col-md-6">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-1"> Add Comment</button>
-    </div>
+       </div>
     <div class="modal" id="modal-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Add comment</h4>
-                    <button class="close" type="button" data-dismiss="modal">
-                        <i class="fa fa-close"></i>
-                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group" style="margin: 20px;">
@@ -61,7 +58,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success" type="button" data-dismiss="modal"> Send</button>
+                    <button class="btn btn-success" type="button" id="send"> Send</button>
                     <button class="btn btn-danger" type="button" data-dismiss="modal"> Close</button>
                 </div>
             </div>

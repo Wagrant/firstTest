@@ -17,13 +17,13 @@ class AuthController
 
 				$temp = new Template;
 				$temp->err = $err;
-				$temp->render("classes/views/loginView.php");
 				echo $temp->render("classes/views/loginView.php");
 		}
 
 		else
 		{
-			header("Location: http://local.loc/main");
+			header("Location: http://local.loc/comments");
+
 		}
 	}
 }

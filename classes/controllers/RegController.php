@@ -23,12 +23,11 @@ class RegController
 			$temp = new Template;
 			$temp->errors = $errors;
 			$temp->success = $success;
-			$temp->render("classes/views/registrationView.php");
 			echo $temp->render("classes/views/registrationView.php");
 		}
 		else
 		{
-			header("Location: http://local.loc/main");
+			header("Location: http://local.loc/comments");
 		}
 	}
 }

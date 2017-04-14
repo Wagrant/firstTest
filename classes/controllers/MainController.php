@@ -13,8 +13,6 @@ class MainController
 				header("Location: http://local.loc/");
 
 			}
-
-			echo "Welcome <strong>$test1</strong>";
 		}
 		else
 		{
