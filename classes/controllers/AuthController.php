@@ -12,6 +12,7 @@ class AuthController
 			
 				$auth = new authModel ($_POST['login'], $_POST['password']);
 				$err = $auth->auth();
+				header("Location: http://local.loc/comments");
 
 			}
 

@@ -1,14 +1,14 @@
- $('#modal-1').click("#send", function(){
+ $('#modal-1').on('click', "#send", function(){
      
         $.ajax({
             type : 'POST',
-            url : '/classes/controller/CommentController.php',
+            url : '/set_comment',
             data: {
-                'test':"vova"
+                'comment':$("textarea[name='comment']").val()
             },
             success: function(data)
             {
-                
+                $('div#comments-logout').last().prepend(data);
 
             }
         });           
