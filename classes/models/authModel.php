@@ -3,6 +3,7 @@ class authModel extends dbModel
 {
 	public $login;
 	public $password;
+	public $id;
 	public $err = array();
 
 		function __construct($login, $password)
@@ -34,6 +35,7 @@ class authModel extends dbModel
 		else
 		{
 			$_SESSION['login'] = $loginRes['login'];
+			$_SESSION['id'] = $loginRes['id'];
 		}
 	}
 }

@@ -1,20 +1,14 @@
 <?php
 class commentModel extends dbModel
 {
-	public $author;
+	public $user_id;
 	public $comment;
 	public $parent_id;
-	public $author_id;
-
-	public function __construct($author)
-	{
-		$this->author  = $author;
-	}
 
 	public function showAllComments()
 	{
 		parent::connect();
-		$showAllComments = $this->dbh->prepare("SELECT author, comment, date FROM comments WHERE parent_id=0");
+		$showAllComments = $this->dbh->prepare("SELECT login, parent_id, comment, comment_id, user_id, date FROM users INNER JOIN comments ON users.id = comments.user_id");
 		$showAllComments->execute();
 		$resultAll = $showAllComments->fetchAll(PDO::FETCH_ASSOC);
 		$resultAll = array_reverse($resultAll);
@@ -25,68 +19,74 @@ class commentModel extends dbModel
 	public function getComment()
 	{
 		parent::connect();
-		$showComments = $this->dbh->prepare("SELECT author, comment, date FROM comments WHERE parent_id=0");
+		$showComments = $this->dbh->prepare("SELECT login, parent_id, comment, comment_id, user_id, date FROM users INNER JOIN comments ON users.id = comments.user_id");
 		$showComments->execute();
 		$result = $showComments->fetchAll(PDO::FETCH_ASSOC);
 		$result = array_reverse($result);
 		$result = current($result);
+
 		return $result;
 	}
 
-	public function addComment($comment)
+	public function addComment($comment, $user_id, $parent_id)
 	{
-		$this->parent_id = 0;
-		$this->author_id = 0;
+		$this->parent_id = $parent_id;
+		$this->user_id = $user_id;
 		$this->comment = $comment;
 		parent::connect();
-		$addComment = $this->dbh->prepare("INSERT INTO comments (author, comment, parent_id, author_id, date) Values (:author, :comment, :parent_id, :author_id, NOW())");
-		$addComment->bindParam (":author", $this->author, PDO::PARAM_STR);
+		$addComment = $this->dbh->prepare("INSERT INTO comments (comment, user_id, parent_id, date) Values (:comment, :user_id, :parent_id, NOW())");
 		$addComment->bindParam (":comment", $this->comment, PDO::PARAM_STR);
+		$addComment->bindParam (":user_id", $this->user_id, PDO::PARAM_STR);
 		$addComment->bindParam (":parent_id", $this->parent_id, PDO::PARAM_INT);
-		$addComment->bindParam (":author_id", $this->author_id, PDO::PARAM_INT);
 		$addComment->execute();
 		$lastId = $this->dbh->lastInsertId();
 	}
 
-	public function deleteComment()
+	public function mapTree($dataSet)
 	{
-		parent::connect();
-		$delComment = $this->dbh->prepare("DELETE FROM comments WHERE ...");
-		$delComment->execute();
-	}
+		$tree = array();
+		$data = array();
 
-	public function updateComment()
-	{
-		parent::connect();
-		$update = $this->dbh->prepare("UPDATE comments SET ... WHERE ...");
-		$update->bindParam("", $var, PDO::PARAM_STR );
-	}
-
-	function getComments($id, $parent_id = 0)
-	{
-		$id = (int)$id;
-		parent::connect();
-		$tree = $this->dbh->prepare("
-		SELECT `comments_list`.*,
-		`users`.`login` as `login`,
-		(SELECT COUNT(`counts`.`id`) FROM `comments` `counts`
-		WHERE `counts`.`parent` = `comments_list`.`id`) AS `count`,
-		DATE_FORMAT(`comments_list`.`date`, '%d.%m.%Y %H:%i') as `date`
-		FROM `comments` `comments_list`
-		LEFT JOIN `users` ON `comments_list`.`user` = `users`.`id`
-		WHERE `comments_list`.`news` = '".$id."' AND `comments_list`.`parent` = '".$parent."'");
-		$i=0;
-		$comments = false;
-		while ($comment = mysql_fetch_object($query))
+		foreach ($dataSet as $key => $value) 
 		{
-			$comments[$i] = $comment;
-			if ($comment->count)
-			{
-				$comments[$i]->comments = getComments($id, $comment->id);
-			}
-			$i++;
+			$data[$value['comment_id']] = $value;
 		}
-		return $comments;
+
+   		foreach ($data as $id => &$node)
+      	{
+        	if (!$node['parent_id'])
+        	{
+        		$tree[$id] = &$node;
+        	}
+        	else 
+        	{
+        		$data[$node['parent_id']]['childs'][$id] = &$node;
+        	}
+      	}
+        return $tree;
 	}
 
+
+	public function commentsToTemplate($comment)
+	{
+	    ob_start();
+	      
+	   	include 'partials/commentPartial.php';                     
+	    
+	    $comments_string = ob_get_contents();
+	    ob_end_clean();
+	    
+	    return $comments_string;
+    
+	}
+
+	public function commentsString($dataTest)
+    {
+    	$string = "";
+        foreach($dataTest as $w) 
+        {
+        	$string .= self::commentsToTemplate($w);
+		}
+        return $string; 
+    }
 }
