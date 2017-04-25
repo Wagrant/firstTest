@@ -19,6 +19,7 @@ var comment_id;
 
      //comment_id = $('li.test1').attr("id");
      comment_id = $(this).parent().parent().attr("id");
+     $("#replyCom").val(''),
 
 
  });
@@ -38,7 +39,7 @@ var comment_id;
         {
             if($("li#"+comment_id).find('ul').length)
             {
-                $('li#'+comment_id).append(data);
+                $('li#'+comment_id).append('<div>'+data+'</div>');
             }
             else
             {
