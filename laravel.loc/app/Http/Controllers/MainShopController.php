@@ -8,6 +8,7 @@ use App\Products;
 use App\Categories;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use View;
 
 class MainShopController extends Controller
 {
@@ -31,12 +32,10 @@ class MainShopController extends Controller
     {
         $product_id = $request->input('product_id');
 
-        $showFullArmor = DB::table('fulls')->inRandomOrder()->limit(1)->get()->toArray();
+        $PopUpProduct = DB::table('products')->where('product_id', '=', $product_id)->first();
 
-        $showProducts = Products::inRandomOrder()->limit(5)->get()->toArray();
-
-        $showPopUpProduct = DB::table('products')->get()->toArray();
-        return view('mainShopView', compact('showPopUpProduct','showProducts', 'showFullArmor'));
+        return response()->json(['price' => $PopUpProduct->price, 'product_name' => $PopUpProduct->product_name,
+            'image_name' => $PopUpProduct->image_name, 'description' => $PopUpProduct->description]);
     }
 
 }

@@ -37,6 +37,15 @@ class BasketController extends Controller
    		$addProduct = DB::table('orders')->insert(['user_id' => $user->id, 'product_id' => $product_id]);
    }
 
+   public function addPopProduct(Request $request)
+   {
+      $user = Auth::user();
+
+      $product_idu = $request->input('product_idu');
+
+      $addPopProduct = DB::table('orders')->insert(['user_id' => $user->id, 'product_id' => $product_idu]);
+   }
+
    public function removeProduct(Request $request)
    {
    		$user = Auth::user();

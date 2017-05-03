@@ -24,7 +24,7 @@
       <div class="modal-body">
         <div class="form-group" style="margin: 20px;">
         <image class="popUpImage" src=""></image>
-        <p style="float:right;""></p>
+        <p class="desc" style="float:right;""></p>
         <h4>Price:</h4>
         <h4 class="price"> </h4>
           
@@ -32,7 +32,7 @@
       </div>
 
       <div class="modal-footer">
-        <button class="btn btn-success" type="button" data-dismiss="modal" id="add"> Add to basket</button>
+        <button class="btn btn-success" type="button" data-dismiss="modal" test="" id="add"> Add to cart</button>
         <button class="btn btn-danger" type="button" data-dismiss="modal"> Close</button>
    	  </div>
 
@@ -48,10 +48,11 @@
 			<section class="products">
 			@foreach($showProducts as $product)
 					<article class="productMain">
+					<h5 style="text-shadow: 2px 1px 2px #32f70e, 0 0 1em #f9230d;">{{"$product[product_name]"}}</h5>
 					<img style='cursor:pointer;' class="test1" id="{{"$product[product_id]"}}" src="images/{{"$product[image_name]"}}.jpg" data-toggle="modal" data-target="#modal-1"> </img>
 					<h3 class="prName" id="{{"$product[product_name]"}}"></h3>
-					<h4 class="prPrice" id="{{"$product[price]"}}""></h4>
-					<a style='cursor:pointer;' class="btn-add" id="addToBasket">Add to basket</a>
+					<h4 style="text-shadow: 2px 1px 2px #32f70e, 0 0 1em #f9230d; class="prPrice" id="{{"$product[price]"}}"> {{"$product[price]"}}</h4>
+					<a style='cursor:pointer;' class="btn-add" idp="{{"$product[product_id]"}}" id="addToBasket">Add to cart</a>
 				</article>
 			@endforeach
 			</section>

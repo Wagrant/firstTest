@@ -26,6 +26,7 @@
 <script type="text/javascript" src="js/addToBasket.js"></script>
 <script type="text/javascript" src="js/removeFromBasket.js"></script>
 <script type="text/javascript" src="js/popUp.js"></script>
+<script type="text/javascript" src="js/addPopUp.js"></script>
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
@@ -39,7 +40,7 @@
         <div class="container">
             <div class="right-links">
                 <ul>
-                    <li><a href="basket"><span class="ico-basket"></span>My basket</a></li>
+                    <li><a href="basket"><span class="ico-basket"></span>My cart</a></li>
                     <li><a href="#"><span class="ico-signout"></span>Sign out</a></li>
                 </ul>
             </div>

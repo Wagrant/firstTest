@@ -17,4 +17,5 @@ Route::any('/boots', 'CategoriesController@showBoots');
 Route::any('/gloves', 'CategoriesController@showGloves');
 Route::any('/basket', 'BasketController@showOrder');
 Route::post('/addProduct', 'BasketController@addProduct');
+Route::post('/addPopProduct', 'BasketController@addPopProduct');
 Route::post('/removeProduct', 'BasketController@removeProduct');

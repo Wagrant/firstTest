@@ -1,6 +1,6 @@
 var product_id;
 $('html').on('click', "#addToBasket", function(){
- product_id = $(this).attr("id");
+ product_id = $(this).attr("idp");
 
          $.ajax({
             type : 'POST',
