@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vagrant's shop</title>
+    <link rel="stylesheet"  href="css/mainView.css">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -19,69 +19,68 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/addToBasket.js"></script>
+<script type="text/javascript" src="js/removeFromBasket.js"></script>
+<script type="text/javascript" src="js/popUp.js"></script>
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+    <header id="header">
+        <div class="container">
+            <div class="right-links">
+                <ul>
+                    <li><a href="basket"><span class="ico-basket"></span>My basket</a></li>
+                    <li><a href="#"><span class="ico-signout"></span>Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
+    <nav id="menu">
+        <div class="container">
+            <ul>
+                <li id="helms" style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="helms">Helms</a></li>
+                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="armors">Armors</a></li>
+                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="swords">Swords</a></li>
+                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="shields">Shields</a></li>
+                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="gloves">Gloves</a></li>
+                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="boots">Boots</a></li>
+                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="categories">All</a></li>
+            </ul>
+        </div>
+    </nav>
+    @yield('content')
+</body>
+    <footer id="footer">
+        <div class="container">
+            <div class="cols">
+                <div class="col">
+                    <h3>Footer</h3>
+                    <ul>
+                        <li><a href="#">New armor models </a></li>
                     </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
+                </div>
+                <div class="col media">
+                    <h3>Social media</h3>
+                    <ul class="social">
+                        <li><a href="#"><span class="ico ico-fb"></span>F in box</a></li>
+                        <li><a href="#"><span class="ico ico-tw"></span>Bird</a></li>
+                        <li><a href="#"><span class="ico ico-gp"></span>crossbow    </a></li>
+                        <li><a href="#"><span class="ico ico-pi"></span>Q</a></li>
                     </ul>
                 </div>
             </div>
-        </nav>
-
-        @yield('content')
-    </div>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-</body>
+            <p class="copy">Copyright 2017 Vagrant's Forge. All rights reserved.</p>
+        </div>
+    </footer>
 </html>

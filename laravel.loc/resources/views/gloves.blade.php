@@ -6,13 +6,12 @@
 		<div class="container">
 			<ul>
 				<li><a href="main">Home</a></li>
-				<li>All stuff</li>
+				<li>Gloves</li>
 			</ul>
 		</div>
 		<!-- / container -->
 	</div>
 	<!-- / body -->
-
 			<div class="products-wrap">
 				<aside id="sidebar">
 					<div class="widget">
@@ -27,8 +26,9 @@
 					</div>
 				</aside>
 
+			<div class="products-wrap">
 				<section class="products">
-				@foreach($showProducts as $product)
+				@foreach($showGloves as $product)
 					<article>
 						<img src="images/{{$product->image_name}}.jpg"></img>
 						<h3>{{$product->product_name}}</h3>
@@ -38,19 +38,12 @@
 				@endforeach
 				</section>
 			</div>
+			</div>
 
 	<div id="body">
 		<div class="container">
 			<div class="pagination">
 				<ul>
-
-				<div class="container">
-				<ul class="pagination">
-					@foreach ($showProducts as $product):
-    				{{$product->product_name}}
-    				@endforeach
-    				$showProducts->render(); ?>
-				</ul>
 					<li><a href="#"><span class="ico-prev"></span></a></li>
 					<li class="active"><a href="#">1</a></li>
 					<li><a href="#">2</a></li>
@@ -58,7 +51,6 @@
 					<li><a href="#">4</a></li>
 					<li><a href="#">5</a></li>
 					<li><a href="#"><span class="ico-next"></span></a></li>
-				</div>
 				</ul>
 			</div>
 		</div>

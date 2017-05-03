@@ -8,7 +8,9 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    You are logged in!<br>
+                    @php $user = Auth::user() @endphp
+                <strong>{{"Hello "."$user->name"}}</strong>
                 </div>
             </div>
         </div>
