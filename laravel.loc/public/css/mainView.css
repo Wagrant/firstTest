@@ -1002,55 +1002,6 @@ h1 {
 	padding-bottom: 30px;
 }
 
-.pagination {
-	margin: -18px 0 30px;
-	text-align: right;
-	font-size: 0;
-}
-
-.products-wrap + .pagination {
-	margin: 30px 0 0;
-}
-
-.pagination span {
-	display: inline-block;
-	background: url(../images/ico_pagination.png) no-repeat;
-	width: 30px;
-	height: 30px;
-	margin: 1px;
-}
-
-.pagination a:hover,
-.pagination .active a {
-	text-decoration: none;
-	background-color: #cecece;
-}
-
-.pagination span.ico-next {
-	background-position: 100% 0;
-}
-
-.pagination li {
-	display: inline-block;
-	vertical-align: top;
-	margin-left: -1px;
-}
-
-.pagination li a {
-	width: 33px;
-	vertical-align: top;
-	text-align: center;
-	color: #656567;
-	font-family: "Novecentowide";
-	font-size: 12px;
-	font-weight: 500;
-	line-height: 29px;
-	height: 33px;
-	border: 1px solid #cdcdcd;
-	background-color: #fff;
-	display: inline-block;
-}
-
 .products-wrap {
 	overflow: hidden;
 }

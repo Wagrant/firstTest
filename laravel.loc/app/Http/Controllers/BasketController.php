@@ -24,7 +24,10 @@ class BasketController extends Controller
 	   		->join('orders', 'users.id', '=', 'orders.user_id' )
 	   		->join('products','products.product_id', '=', 'orders.product_id')->where('orders.user_id', '=', $user->id)
 	   		->get()->toArray();
-	    	return view('BasketView', compact('showOrder'));
+
+        $showPrice = DB::table('orders')->join('products', 'orders.product_id', '=', 'products.product_id')
+        ->sum('price');
+	    	return view('BasketView', compact('showOrder', 'showPrice'));
     	}
    }
 
@@ -35,15 +38,6 @@ class BasketController extends Controller
    		$product_id = $request->input('product_id');
 
    		$addProduct = DB::table('orders')->insert(['user_id' => $user->id, 'product_id' => $product_id]);
-   }
-
-   public function addPopProduct(Request $request)
-   {
-      $user = Auth::user();
-
-      $product_idu = $request->input('product_idu');
-
-      $addPopProduct = DB::table('orders')->insert(['user_id' => $user->id, 'product_id' => $product_idu]);
    }
 
    public function removeProduct(Request $request)

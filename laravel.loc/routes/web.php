@@ -5,17 +5,13 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::any('/bank', function()
+	{return view('bankView');});
+Route::any('/aboutUs', function()
+	{return view('aboutUsView');});
 Route::any('/main', 'MainShopController@showAllProducts');
 Route::any('/mainPopUp', 'MainShopController@showPopUpProduct');
-Route::any('/categories', 'CategoriesController@showAllCategories');
+Route::any('/categories', 'CategoriesController@showCategories');
 Route::any('/basket', 'BasketController@showOrder');
-Route::any('/helms', 'CategoriesController@showHelms');
-Route::any('/armors', 'CategoriesController@showArmors');
-Route::any('/swords', 'CategoriesController@showSwords');
-Route::any('/shields', 'CategoriesController@showShields');
-Route::any('/boots', 'CategoriesController@showBoots');
-Route::any('/gloves', 'CategoriesController@showGloves');
-Route::any('/basket', 'BasketController@showOrder');
-Route::post('/addProduct', 'BasketController@addProduct');
-Route::post('/addPopProduct', 'BasketController@addPopProduct');
+Route::any('/addProduct', 'BasketController@addProduct');
 Route::post('/removeProduct', 'BasketController@removeProduct');

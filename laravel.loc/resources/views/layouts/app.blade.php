@@ -9,6 +9,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="_token" value="_token">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -26,7 +28,8 @@
 <script type="text/javascript" src="js/addToBasket.js"></script>
 <script type="text/javascript" src="js/removeFromBasket.js"></script>
 <script type="text/javascript" src="js/popUp.js"></script>
-<script type="text/javascript" src="js/addPopUp.js"></script>
+<script type="text/javascript" src="js/showPart.js"></script>
+
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
@@ -36,7 +39,7 @@
 </script>
 </head>
 <body>
-    <header id="header">
+    <header id="header" style="background: white">
         <div class="container">
             <div class="right-links">
                 <ul>
@@ -47,28 +50,16 @@
         </div>
     </header>
 
-    <nav id="menu">
-        <div class="container">
-            <ul>
-                <li id="helms" style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="helms">Helms</a></li>
-                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="armors">Armors</a></li>
-                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="swords">Swords</a></li>
-                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="shields">Shields</a></li>
-                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="gloves">Gloves</a></li>
-                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="boots">Boots</a></li>
-                <li style="text-shadow: 2px 1px 2px #dbdbf3, 0 0 1em #de432a;"><a href="categories">All</a></li>
-            </ul>
-        </div>
-    </nav>
     @yield('content')
 </body>
     <footer id="footer">
         <div class="container">
             <div class="cols">
                 <div class="col">
-                    <h3>Footer</h3>
+                    <h3>Some Info</h3>
                     <ul>
-                        <li><a href="#">New armor models </a></li>
+                        <li><a href="aboutUs">About Us </a></li>
+                        <li><a href="bank">Need money? </a></li>
                     </ul>
                 </div>
                 <div class="col media">
